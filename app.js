@@ -3,6 +3,7 @@ const bodyparser = require("body-parser");
 var mongoose = require("mongoose");
 const cliente_route = require("./routes/cliente");
 const admin_route = require("./routes/admin");
+const producto_route = require("./routes/producto");
 const app = express();
 const port = process.env.PORT || 4201;
 mongoose.connect('mongodb+srv://akarnis:Slenderman.500@angularamazon.tjl2ztc.mongodb.net/?retryWrites=true&w=majority')
@@ -30,5 +31,6 @@ app.use((req,res,next)=>{
 
 app.use("/api", cliente_route);
 app.use("/api", admin_route);
+app.use("/api", producto_route);
 
 module.exports = app;
