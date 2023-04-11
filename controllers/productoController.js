@@ -155,7 +155,48 @@ const listar_inventario_producto_admin = async function(req, res){
         if(req.user.role == "admin")
         {
             var id = req.params['id'];
-            var reg = await Inventario.find({producto:id});
+            var reg = await Inventario.find({producto:id}).populate('admin').sort({createdAt:-1});
+            res.status(200).send({data:reg});
+        }else{
+            res.status(500).send({message: 'NoAccess'});
+        }
+    }else{
+        res.status(500).send({message: 'NoAccess'});
+    }
+}
+
+const eliminar_inventario_producto_admin = async function(req, res){
+    if(req.user){
+        if(req.user.role == "admin")
+        {
+            var id = req.params['id'];
+            let reg = await Inventario.findByIdAndRemove({_id:id});
+            let prod = await Producto.findById({_id:reg.producto});
+            let nuevo_stock = parseInt(prod.stock) - parseInt(reg.cantidad);
+            let producto = await Producto.findByIdAndUpdate({_id: reg.producto}, {
+                stock: nuevo_stock
+            });
+            res.status(200).send({data:producto});
+        }else{
+            res.status(500).send({message: 'NoAccess'});
+        }
+    }else{
+        res.status(500).send({message: 'NoAccess'});
+    }
+}
+
+const registro_inventario_producto_admin = async function(req, res){
+    if(req.user)
+    {
+        if(req.user.role == "admin")
+        {
+            let data = req.body;
+            let reg = await Inventario.create(data);
+            let prod = await Producto.findById({_id: reg.producto});
+            let nuevo_stock = parseInt(prod.stock) + parseInt(reg.cantidad);
+            let producto = await Producto.findByIdAndUpdate({_id: reg.producto}, {
+                stock: nuevo_stock
+            })
             res.status(200).send({data:reg});
         }else{
             res.status(500).send({message: 'NoAccess'});
@@ -173,4 +214,7 @@ module.exports = {
     actualizar_producto_admin,
     eliminar_producto_admin,
     listar_inventario_producto_admin,
+    eliminar_inventario_producto_admin,
+    registro_inventario_producto_admin
+    
 }
