@@ -1,5 +1,5 @@
 const express = require("express");
-const productoController = require("../controllers/productoController");
+const productoController = require("../controllers/ProductoController");
 const api = express.Router();
 const auth = require("../middlewares/authenticate");
 const multiparty = require("connect-multiparty");
