@@ -6,7 +6,7 @@ const obtener_config_admin = async function(req, res){
     if(req.user){
         if(req.user.role == "admin")
         {
-            var id = req.params['id'];
+            
             let reg = await Config.findById({_id: "643e277e886d03f8c61ebea1"});
             res.status(200).send({data:reg});
         }else{
@@ -24,6 +24,7 @@ const actualiza_config_admin = async function(req,res){
             var id = req.params['id'];
             let data = req.body;
             if(req.files){
+                console.log("si hay imagen")
                 var img_path = req.files.logo ? req.files.logo.path : null;
 
                 if (img_path !== null) {
@@ -34,7 +35,7 @@ const actualiza_config_admin = async function(req,res){
                     var logo_name = name[2];
                     // Resto del código que usa la variable 'portada_name'
                 }
-                let reg = await Config.findByIdAndUpdate({_id: id},{
+                let reg = await Config.findByIdAndUpdate({_id: "643e277e886d03f8c61ebea1"},{
                     categorias: data.categorias,
                     titulo: data.titulo,
                     serie: data.serie,
@@ -48,6 +49,7 @@ const actualiza_config_admin = async function(req,res){
                 });
                 res.status(200).send({data:reg});
             }else{
+                console.log("no hay imagen");
                 let reg = await Config.findByIdAndUpdate({_id: "643e277e886d03f8c61ebea1"},{
                     categorias: data.categorias,
                     titulo: data.titulo,
@@ -57,7 +59,7 @@ const actualiza_config_admin = async function(req,res){
                 })
                 res.status(200).send({data:reg});
             }
-            res.status(200).send({data:reg});
+            
             
            
         }else{
