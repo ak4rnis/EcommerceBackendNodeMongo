@@ -80,8 +80,24 @@ const registrar_configuracion_admin = async function(req,res){
     });
 } 
 
+const obtener_logo = async function(req, res){
+    var img = req.params['img'];
+    fs.stat('./uploads/configuraciones/'+img, function(err){
+        if(!err){
+            let path_img = './uploads/configuraciones/'+img;
+            console.log("existoso")
+            res.status(200).sendFile(path.resolve(path_img));
+        }else{
+            let path_img = './uploads/default.png';
+            console.log("fallido")
+            res.status(200).sendFile(path.resolve(path_img));
+        }
+    })
+}
+
 module.exports = {
     actualiza_config_admin,
     obtener_config_admin,
-    registrar_configuracion_admin
+    registrar_configuracion_admin,
+    obtener_logo
 }
