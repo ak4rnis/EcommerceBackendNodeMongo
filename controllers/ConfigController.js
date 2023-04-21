@@ -36,7 +36,7 @@ const actualiza_config_admin = async function(req,res){
                     // Resto del código que usa la variable 'portada_name'
                 }
                 let reg = await Config.findByIdAndUpdate({_id: "643e277e886d03f8c61ebea1"},{
-                    categorias: data.categorias,
+                    categorias: JSON.parse(data.categorias),
                     titulo: data.titulo,
                     serie: data.serie,
                     logo: logo_name,
@@ -95,9 +95,15 @@ const obtener_logo = async function(req, res){
     })
 }
 
+const obtener_config_publico = async function(req,res){
+    let reg = await Config.findById({_id: "643e277e886d03f8c61ebea1"})
+    res.status(200).send({data:reg});
+}
+
 module.exports = {
     actualiza_config_admin,
     obtener_config_admin,
     registrar_configuracion_admin,
-    obtener_logo
+    obtener_logo,
+    obtener_config_publico
 }
