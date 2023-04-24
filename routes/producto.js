@@ -14,6 +14,7 @@ api.put('/actualizar_producto_admin/:id',[auth.auth, path], productoController.a
 api.delete('/eliminar_producto_admin/:id', auth.auth, productoController.eliminar_producto_admin);
 api.put('/actualizar_producto_variedades_admin/:id', auth.auth, productoController.actualizar_producto_variedades_admin);
 api.put('/agregar_imagen_galeria_admin/:id', [auth.auth,path],productoController.agregar_imagen_galeria_admin);
+api.put('/eliminar_imagen_galeria_admin/:id', auth.auth, productoController.eliminar_imagen_galeria_admin);
 
 //Inventario
 api.get('/listar_inventario_producto_admin/:id', auth.auth, productoController.listar_inventario_producto_admin);
