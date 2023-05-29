@@ -6,12 +6,28 @@ const admin_route = require("./routes/admin");
 const producto_route = require("./routes/producto");
 const cupon_route = require("./routes/cupon");
 const config_route = require("./routes/config");
+const carrito_route = require("./routes/carrito");
 const app = express();
 const port = process.env.PORT || 4201;
+
+var server = require('http').createServer(app);
+var io = require('socket.io')(server,{
+    cors: {origin: '*'}
+});
+io.on('connection',function(socket){
+    socket.on('delete-carrito', function(data){
+        io.emit('new-carrito',data);
+        console.log(data);
+    });
+    socket.on('add-carrito-add', function(data){
+        io.emit('new-carrito-add',data);
+        console.log(data);
+    });
+});
 mongoose.connect('mongodb+srv://akarnis:Slenderman.500@angularamazon.tjl2ztc.mongodb.net/?retryWrites=true&w=majority')
     .then((res) => {
         console.log('Servidor corriendo');
-        app.listen(port, function(){
+        server.listen(port, function(){
             console.log("Servidor corriendo en el puerto" + port);
         });
     })
@@ -36,5 +52,6 @@ app.use("/api", admin_route);
 app.use("/api", producto_route);
 app.use("/api", cupon_route);
 app.use("/api",config_route);
+app.use("/api", carrito_route);
 
 module.exports = app;
