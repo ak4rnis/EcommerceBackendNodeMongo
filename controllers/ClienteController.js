@@ -243,7 +243,7 @@ const registro_direccion_cliente = async function(req,res){
 const obtener_direccion_todos_cliente = async function(req, res){
     if(req.user){
         var id = req.params['id'];
-        let direcciones = await Direccion.find({cliente:id});
+        let direcciones = await Direccion.find({cliente:id}).populate('cliente').sort({createdAt:-1});
         res.status(200).send({data:direcciones});
     }else{
         res.status(500).send({message: 'NoAccess'});
@@ -265,6 +265,21 @@ const obtener_direccion_principal_cliente = async function(req,res){
     }
 }
 
+const cambiar_direccion_principal_cliente = async function(req,res){
+    if(req.user){
+        var id = req.params['id'];
+        var cliente = req.params['cliente'];
+        let direcciones = await Direccion.find({cliente:cliente});
+        direcciones.forEach(async element => {
+            await Direccion.findByIdAndUpdate({_id:element._id},{principal:false});
+        });
+        await Direccion.findByIdAndUpdate({_id:id},{principal:true});
+        res.status(200).send({data:true});
+    }else{
+        res.status(500).status({message: 'NoAccess'});
+    }
+}
+
 
 module.exports = {
     registro_cliente,
@@ -279,4 +294,5 @@ module.exports = {
     registro_direccion_cliente,
     obtener_direccion_todos_cliente,
     obtener_direccion_principal_cliente,
+    cambiar_direccion_principal_cliente,
 }
