@@ -2,6 +2,12 @@ const Venta = require("../models/venta");
 const Dventa = require("../models/dventa");
 const Producto = require("../models/producto");
 const Carrito = require("../models/carrito");
+const fs = require("fs");
+const handlebars = require("handlebars");
+const ejs = require("ejs");
+const nodemailer = require("nodemailer");
+const smtpTransport = require("nodemailer-smtp-transport");
+const path = require("path");
 
 const registro_compra_cliente = async function(req,res){
     if(req.user){
