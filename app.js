@@ -1,12 +1,7 @@
 const express = require("express");
 const bodyparser = require("body-parser");
 var mongoose = require("mongoose");
-const fs = require("fs");
-const handlebars = require("handlebars");
-const ejs = require("ejs");
-const nodemailer = require("nodemailer");
-const smtpTransport = require("nodemailer-smtp-transport");
-const path = require("path");
+
 const cliente_route = require("./routes/cliente");
 const admin_route = require("./routes/admin");
 const producto_route = require("./routes/producto");
@@ -17,25 +12,7 @@ const venta_route = require("./routes/venta");
 const api = require("./routes/cliente");
 const app = express();
 
-const readHTMLFile = function(path, callback){
-    fs.readFile(path, {encoding: 'utf-8'}, function (err, html){
-        if(err){
-            throw err;
-            callback(err);
-        }else{
-            callback(null, html);
-        }
-    });
-};
 
-const transport = nodemailer.createTransport(smtpTransport({
-    service: 'gmail',
-    host: 'smtp.gmail.com',
-    auth: {
-        user: 'pieero.flores500@gmail.com',
-        pass: 'rswzvahacwtkjfwv'
-    }
-}));
 
 
 const port = process.env.PORT || 4201;
