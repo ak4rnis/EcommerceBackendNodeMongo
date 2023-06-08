@@ -9,6 +9,7 @@ const cupon_route = require("./routes/cupon");
 const config_route = require("./routes/config");
 const carrito_route = require("./routes/carrito");
 const venta_route = require("./routes/venta");
+const descuento_route = require("./routes/descuento");
 const api = require("./routes/cliente");
 const app = express();
 
@@ -61,5 +62,6 @@ app.use("/api", cupon_route);
 app.use("/api",config_route);
 app.use("/api", carrito_route);
 app.use("/api", venta_route);
+app.use("/api", descuento_route);
 
 module.exports = app;
