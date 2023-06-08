@@ -31,7 +31,7 @@ const listar_descuentos_admin = async function(req,res){
     if(req.user){
         if(req.user.role == 'admin'){
             var filtro = req.params['filtro'];
-            let reg = await Descuento.find({titulo: new RegExp(filtro, 'i')});
+            let reg = await Descuento.find({titulo: new RegExp(filtro, 'i')}).sort({createdAt:-1});
             res.status(200).send({data:reg});
         }else{
             res.status(500).send({message: 'NoAccess'});
