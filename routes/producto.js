@@ -18,7 +18,9 @@ api.put('/eliminar_imagen_galeria_admin/:id', auth.auth, productoController.elim
 api.get('/listar_productos_publico/:filtro?',productoController.listar_productos_publico);
 
 api.get('/obtener_productos_slug_publico/:slug', productoController.obtener_productos_slug_publico);
-api.get('/listar_productos_recomendados_publico/:categoria')
+api.get('/listar_productos_recomendados_publico/:categoria', productoController.listar_productos_recomendados_publico);
+api.get('/listar_productos_nuevos_publico',productoController.listar_productos_nuevos_publicos);
+api.get('/listar_productos_masvendidos_publico',productoController.listar_productos_masvendidos_publico);
 
 //Inventario
 api.get('/listar_inventario_producto_admin/:id', auth.auth, productoController.listar_inventario_producto_admin);

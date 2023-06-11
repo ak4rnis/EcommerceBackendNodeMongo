@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const DescuentoSchema = new Schema({
     titulo: {type: String, required: true},
-    banner:{type: String, required: true},
+    banner:{type: String, required: false},
     descuento: {type: Number, required: true},
     fecha_inicio: {type: String, required: true},
     fecha_fin: {type: String, required: true},

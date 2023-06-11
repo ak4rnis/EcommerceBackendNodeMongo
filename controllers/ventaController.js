@@ -46,8 +46,10 @@ const registro_compra_cliente = async function(req,res){
             await Dventa.create(element);
             let element_producto = await Producto.findById({_id: element.producto});
             let new_stock = element_producto.stock - element.cantidad;
+            let new_ventas = element_producto.nventas + 1;
             await Producto.findByIdAndUpdate({_id: element.producto},{
-                stock: new_stock
+                stock: new_stock,
+                nventas: new_ventas,
             });
             await Carrito.deleteOne({cliente: data.cliente});
             

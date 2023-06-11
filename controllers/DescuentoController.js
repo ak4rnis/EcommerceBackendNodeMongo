@@ -43,9 +43,9 @@ const listar_descuentos_admin = async function(req,res){
 
 const obtener_banner_descuento = async function(req,res){
     var img = req.params['img'];
-    fs.stat(',/uploads/descuentos/'+img, function(err){
+    fs.stat('./uploads/descuentos/'+img, function(err){
         if(!err){
-            let path_img = './uploads/descuentos'+img;
+            let path_img = './uploads/descuentos/'+img;
             res.status(200).sendFile(path.resolve(path_img));
         }else{
             let path_img = './uploads/default.png';
@@ -79,6 +79,7 @@ const actualizar_descuento_admin = async function(req, res){
         if(req.user.role == 'admin')
         {
             let id = req.params['id'];
+            
             let data = req.body;
             if(req.files){
                 var img_path = req.files.banner ? req.files.banner.path : null;
@@ -100,7 +101,7 @@ const actualizar_descuento_admin = async function(req, res){
                 });
                 fs.stat('./uploads/descuentos/'+reg.banner, function(err){
                     if(!err){
-                        fs.unlink('./uploads/descuentos/'+img, (err) => {
+                        fs.unlink('./uploads/descuentos/'+reg.banner, (err) => {
                             if(err) throw err;
                         })
                     }
