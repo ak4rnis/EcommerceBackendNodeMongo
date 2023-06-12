@@ -16,4 +16,5 @@ api.post('/registro_direccion_cliente',auth.auth,clienteController.registro_dire
 api.get('/obtener_direccion_principal_cliente/:id', auth.auth, clienteController.obtener_direccion_principal_cliente);
 api.get('/obtener_direccion_todos_cliente/:id',auth.auth, clienteController.obtener_direccion_todos_cliente);
 api.put('/cambiar_direccion_principal_cliente/:id/:cliente', auth.auth, clienteController.cambiar_direccion_principal_cliente);
+api.post('/enviar_mensaje_contacto',clienteController.enviar_mensaje_contacto);
 module.exports = api;

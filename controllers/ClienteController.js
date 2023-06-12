@@ -2,6 +2,7 @@ const Cliente = require("../models/cliente");
 const bcrypt = require("bcrypt-nodejs");
 const jwt = require("../helpers/jwt");
 const Direccion = require("../models/direccion");
+const Contacto = require("../models/contacto");
 
 const registro_cliente = async function(req, res){
     let data = req.body;
@@ -280,6 +281,12 @@ const cambiar_direccion_principal_cliente = async function(req,res){
     }
 }
 
+const enviar_mensaje_contacto = async function(req,res){
+    let data = req.body;
+    let reg = await Contacto.create(data);
+    res.status(200).send({data:reg});
+}
+
 
 module.exports = {
     registro_cliente,
@@ -295,4 +302,5 @@ module.exports = {
     obtener_direccion_todos_cliente,
     obtener_direccion_principal_cliente,
     cambiar_direccion_principal_cliente,
+    enviar_mensaje_contacto,
 }
