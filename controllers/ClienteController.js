@@ -283,6 +283,7 @@ const cambiar_direccion_principal_cliente = async function(req,res){
 
 const enviar_mensaje_contacto = async function(req,res){
     let data = req.body;
+    data.estado = 'Abierto';
     let reg = await Contacto.create(data);
     res.status(200).send({data:reg});
 }
