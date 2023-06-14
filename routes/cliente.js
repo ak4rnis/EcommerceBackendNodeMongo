@@ -19,5 +19,7 @@ api.put('/cambiar_direccion_principal_cliente/:id/:cliente', auth.auth, clienteC
 api.post('/enviar_mensaje_contacto',clienteController.enviar_mensaje_contacto);
 api.get('/obtener_ordenes_cliente/:id',auth.auth,clienteController.obtener_ordenes_cliente);
 api.get('/obtener_detalles_ordenes_cliente/:id', auth.auth, clienteController.obtener_detalles_ordenes_cliente);
+api.post('/emitir_review_producto_cliente',auth.auth,clienteController.emitir_review_producto_cliente);
+
 
 module.exports = api;

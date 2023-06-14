@@ -5,6 +5,8 @@ const Direccion = require("../models/direccion");
 const Contacto = require("../models/contacto");
 const Venta = require("../models/venta");
 const Dventa = require("../models/dventa");
+const Review = require("../models/review");
+
 
 const registro_cliente = async function(req, res){
     let data = req.body;
@@ -323,6 +325,16 @@ const obtener_detalles_ordenes_cliente = async function(req,res){
     }
 }
 
+const emitir_review_producto_cliente = async function(req,res){
+    if(req.user){
+        let data = req.body;
+        let reg = await Review.create(data);
+        res.status(200).send({data:reg});
+    }else{
+        res.status(500).status({message: 'NoAccess'});
+    }
+}
+
 
 module.exports = {
     registro_cliente,
@@ -341,5 +353,6 @@ module.exports = {
     enviar_mensaje_contacto,
     obtener_ordenes_cliente,
     obtener_detalles_ordenes_cliente,
+    emitir_review_producto_cliente,
 }
 
